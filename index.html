@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html lang="en" data-ng-app="movieApp">
+  <head>
+		<meta charset="utf-8">
+		<title>RIA Personal Project: Aggregate Movie App</title>
+  </head>
+	
+	<body>
+		
+		<div data-ng-controller="movieCtrl">
+			<input type="text" data-ng-model="movieSearch" /> 
+				{{ message }}, {{ movieSearch }}
+		</div>
+	
+		<!-- Javascript includes -->
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+		<script src="js/movieCtrl.js"></script>
+	</body>
+</html>
