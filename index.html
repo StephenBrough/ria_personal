@@ -9,7 +9,7 @@
 	<body>
 		
 		<div data-ng-controller="movieCtrl">
-			<input type="text" data-ng-model="movieSearch" /> 
+			<input type="text" data-ng-model="movieSearch" data-ng-keyup="keyUp($event)"/> 
 				{{ message }}, {{ movieSearch }}
 		</div>
 	
