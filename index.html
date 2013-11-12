@@ -6,12 +6,18 @@
 		<title>RIA Personal Project: Aggregate Movie App</title>
   </head>
 	
-	<body>
+	<body data-ng-controller="movieCtrl">
 		
-		<div data-ng-controller="movieCtrl">
+		<div>
 			<input type="text" data-ng-model="movieSearch" data-ng-keyup="keyUp($event)"/> 
 				{{ message }}, {{ movieSearch }}
 		</div>
+    
+    <div id="results">
+      <ul>
+        <li>Name:{{ result }}</li>
+      </ul>
+    </div>
 	
 		<!-- Javascript includes -->
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
