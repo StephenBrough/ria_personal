@@ -8,51 +8,25 @@
  *  Date: November 10, 2013
  */
  
- // Freebase API stuff
- var freeBaseApiKey = "AIzaSyDMH4mMetvW-Oa-skN49ynGFAcMsqIDEgY";
- var version = "v1sandbox"; // use 'v1' for production
- var apiname = "search"; // 'mqlread', 'search', 'topic'
- var freeBaseURI = "https://www.googleapis.com/freebase/"+version+"/"+apiname+"?query=";
- 
- // App specific vars
+  // App specific vars
  var app = angular.module('movieApp', []);
  var query = "";
  
  // Main Angular controller for this app
  app.controller('movieCtrl', function($scope, $http){
-		$scope.message = "Test";
-		
+		$scope.message = "Test";		
 		// Keyup callback for the search input
-		$scope.keyUp = function(keyEvent) {
-			$scope.message = $scope.movieSearch;
+		$scope.keyUp = function(keyEvent) {			
 			console.log('keyup', keyEvent); // FOR TESTING
-      query = encodeURIComponent($scope.message);
-      
+      query = $scope.movieSearch;
       // Only run the HTTP request if there is something to request
-      if (query != null && query != "" && typeof query != undefined) {
-      // Using Angular's $http service to make an HTTP request based on what the user has entered
-      $http({method: 'GET', url: freeBaseURI + query}).
-        success(function(data, status, headers, config) {          
-          // Log everything for testing
-          console.log("Data: " + data.result[0].name);
-          $scope.result = data.result[0].name;
-          console.log("Status: " + status);
-          console.log("Headers: " + headers);
-          console.log("Config: " + config);          
-        }).
-        error(function(data, status, headers, config){
-          // Log everything for testing
-          alert("ERROR\nStatus code: " + status);
-          console.log("Data: " + data);
-          console.log("Status: " + status);
-          console.log("Headers: " + headers);
-          console.log("Config: " + config);
-        });
-        console.log("Uri: " + freeBaseURI + query);
-        }
-      }; // End keyup callback
+      if (query != null && query != "" && typeof query != undefined) {        
+        freeBase($http, query);
+        rottenTomatoes($http, query);
+      }
+    }; 
       
- }); // End controller
+ }); 
  
 /* Function object declaration for hitting the Freebase Google API 
  *
@@ -60,17 +34,68 @@
  * @author Stephen Brough
  *
  */
-function freeBase(query){}
+function freeBase($http, query){
+  // Freebase API stuff
+  var freeBaseApiKey = "AIzaSyDMH4mMetvW-Oa-skN49ynGFAcMsqIDEgY";
+  var path = "https://www.googleapis.com/freebase/";  
+  var version = "v1sandbox"; // use 'v1' for production
+  var apiName = "search";    // 'mqlread', 'search', 'topic'
+  var endpoint = version + "/" + apiName;
+  var params = {
+    query:query
+  };
+  $http({method: 'GET', url: Arg.url(path + endpoint, params)}).
+    success(function(data, status, headers, config) {
+    // Log everything for testing
+      console.log("Data: " + JSON.stringify(data));
+      //$scope.result = data.result[0].name;
+      console.log("Status: " + status);
+      console.log("Headers: " + headers);
+      console.log("Config: " + config);
+    }).
+    error(function(data, status, headers, config){
+      // Log everything for testing
+      alert("ERROR\nStatus code: " + status);
+      console.log("Data: " + data);
+      console.log("Status: " + status);
+      console.log("Headers: " + headers);
+      console.log("Config: " + config);
+      });
+    console.log("Uri: " + Arg.url(path + endpoint, params));
+
+}
  
-/* Function object declaration for hitting the Rotten Tomatoes API 
+/* Function object declaration for hitting the Rotten Tomatoes API. This is a declarative function
+ *   to take advantage of function hoisting so that we can declare this on the scope object in the 
+ *   controller above.
  *
  * @params query - String that has the query for Rotten Tomatoes
+ * @return Returns a JSON object
  * @author Stephen Brough
  *
  */
-function rottenTomaties(query){
+function rottenTomatoes($http, query){
+  // TODO: Change to use JSONP
+  var apiKey = "74pt3qns49x8qu5a2fumx2qf"; // API Key for Rotten Tomatoes
+  var path = "http://api.rottentomatoes.com";
+  var endpoint = "/api/public/v1.0/movies.json";
+  var params = {
+    q:query,         // The plain text search query to search for a movie (URI encoded)
+    page_limit:10,   // The amount of movie search results to show per page
+    page:1,          // The selected page of movie search results  
+    apikey:apiKey    // My personalized, fancy shmansy API key for Rotten Tomatoes!
+  };
   
- }
+  $http({method: 'GET', url:Arg.url(path + endpoint, params)}).
+  success(function(data, status, headers, config){
+    console.log("Rotten Tomatoes Success: " + JSON.stringify(data));
+  }).
+  error(function(data, status, headers, config){
+    console.log("Rotten Tomatoes Error: " + JSON.stringify(data));
+  });
+  console.log("Rotten Tomatoes URL: " + Arg.url(path + endpoint, params));
+  
+}
  
  
 /* Function object declaration for hitting the Grooveshark API 
