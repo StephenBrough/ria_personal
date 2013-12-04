@@ -85,7 +85,8 @@ function rottenTomatoes($http, query){
     apikey:apiKey    // My personalized, fancy shmansy API key for Rotten Tomatoes!
   };
   
-  $http({method: 'GET', url:Arg.url(path + endpoint, params)}).
+  $http({method: 'GET', url:Arg.url(path + endpoint, params),
+  headers: {'Access-Control-Allow-Origin' : '*'}}).
   success(function(data, status, headers, config){
     console.log("Rotten Tomatoes Success: " + JSON.stringify(data));
   }).
