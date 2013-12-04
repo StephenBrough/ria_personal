@@ -10,23 +10,25 @@
 		
 		<div>
 			<input type="text" data-ng-model="movieSearch" data-ng-keyup="keyUp($event)"/> 
-				{{ message }}, {{ movieSearch }}
+				{{ movieSearch }}
 		</div>
     
-    <div id="results">
-      <ul>
-        <li>Name:{{ result }}</li>
+    <div id="results">     
+      <ul>      
+        <li data-ng-repeat="result in resultObject.result">
+        Name:{{ result.name }}
+        </li>
       </ul>
     </div>
 	
 		<!-- Javascript includes -->
     <!-- Includes:           -->
-    <!-- CDN for AngularJS   -->    
+    <!-- CDN for AngularJS   -->
     <!-- Arg.js - A lightweight URL argument and parameter parser -->
     <!--         https://github.com/stretchr/arg.js               -->
     <!-- My Movie Controller -->    
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
-    <script src="js/arg.js.v1.1.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.min.js"></script>
+   <script src="js/arg.js.v1.1.min.js"></script>
 		<script src="js/movieCtrl.js"></script>
 	</body>
 </html>

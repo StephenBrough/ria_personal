@@ -12,20 +12,43 @@
  var app = angular.module('movieApp', []);
  var query = "";
  
+ var freeBaseApiKey = "AIzaSyDMH4mMetvW-Oa-skN49ynGFAcMsqIDEgY";
+  var path = "https://www.googleapis.com/freebase/";  
+  var version = "v1sandbox"; // use 'v1' for production
+  var apiName = "search";    // 'mqlread', 'search', 'topic'
+  var endpoint = version + "/" + apiName;
+ // var params = {
+ //   query:query
+ // };
+  var results;
+ 
  // Main Angular controller for this app
- app.controller('movieCtrl', function($scope, $http){
-		$scope.message = "Test";		
-		// Keyup callback for the search input
+ app.controller('movieCtrl', function($scope, $http){		
+    $scope.resultObject = {};		
 		$scope.keyUp = function(keyEvent) {			
-			console.log('keyup', keyEvent); // FOR TESTING
-      query = $scope.movieSearch;
+			query = $scope.movieSearch;
       // Only run the HTTP request if there is something to request
       if (query != null && query != "" && typeof query != undefined) {        
-        freeBase($http, query);
-        rottenTomatoes($http, query);
+        $scope.resultObject = freeBase($http, query);
+        params = { query:query};
+        //rottenTomatoes($http, query);        
+        
+        $http({method: 'GET', url: Arg.url(path + endpoint, params)}).
+    success(function(data, status, headers, config) {
+    // Log everything for testing      
+      $scope.resultObject = data;
+      console.log("Success" + JSON.stringify(results));      
+    }).
+    error(function(data, status, headers, config){
+      // Log everything for testing
+      alert("ERROR\nStatus code: " + status);         
+      });
+    console.log("Uri: " + Arg.url(path + endpoint, params)); 
+    
+    
       }
+      console.log("result object: " + JSON.stringify($scope.resultObject));
     }; 
-      
  }); 
  
 /* Function object declaration for hitting the Freebase Google API 
@@ -36,33 +59,9 @@
  */
 function freeBase($http, query){
   // Freebase API stuff
-  var freeBaseApiKey = "AIzaSyDMH4mMetvW-Oa-skN49ynGFAcMsqIDEgY";
-  var path = "https://www.googleapis.com/freebase/";  
-  var version = "v1sandbox"; // use 'v1' for production
-  var apiName = "search";    // 'mqlread', 'search', 'topic'
-  var endpoint = version + "/" + apiName;
-  var params = {
-    query:query
-  };
-  $http({method: 'GET', url: Arg.url(path + endpoint, params)}).
-    success(function(data, status, headers, config) {
-    // Log everything for testing
-      console.log("Data: " + JSON.stringify(data));
-      //$scope.result = data.result[0].name;
-      console.log("Status: " + status);
-      console.log("Headers: " + headers);
-      console.log("Config: " + config);
-    }).
-    error(function(data, status, headers, config){
-      // Log everything for testing
-      alert("ERROR\nStatus code: " + status);
-      console.log("Data: " + data);
-      console.log("Status: " + status);
-      console.log("Headers: " + headers);
-      console.log("Config: " + config);
-      });
-    console.log("Uri: " + Arg.url(path + endpoint, params));
-
+  
+  
+  
 }
  
 /* Function object declaration for hitting the Rotten Tomatoes API. This is a declarative function
