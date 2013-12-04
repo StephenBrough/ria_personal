@@ -31,7 +31,7 @@
       if (query != null && query != "" && typeof query != undefined) {        
         $scope.resultObject = freeBase($http, query);
         params = { query:query};
-        //rottenTomatoes($http, query);        
+        rottenTomatoes($http, query);        
         
         $http({method: 'GET', url: Arg.url(path + endpoint, params)}).
     success(function(data, status, headers, config) {
