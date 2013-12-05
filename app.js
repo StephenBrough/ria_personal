@@ -18,6 +18,14 @@
  var endpoint = "/api/public/v1.0/movies.json"; 
  /* * * * * * * * * * * * * * * * */
  
+ 
+ /* Twitter key variables */
+ var consumer_key = 'WwRjYtu0rz42qhdG7e3nA';
+ var consumer_secret = 'AapYHYjF3M7JKqVn5cI4bbCXfYX9OpvNiQFNxBLnDE'
+ var access_token_key = '563963604-AAgw8s7v4fwh8knpji2xOFXCkYCxcJc3Wr7b6TM6';
+ var access_token_secret = 'FWA0DxU3Yy778cXUWRpfIg82Mdi6fePoyhSEKB4YCURNU'; 
+ /* * * * * * * * * * * * * * * * */
+ 
  app.use('/js', express.static(__dirname + '/js')); 
  
  app.get('/rottenApi/:page_limit/:page/:q', function(req, response) {
@@ -35,22 +43,12 @@
      if (!error && response.statusCode == 200) {
        console.log(body); // Print the google web page.
      }        
-   }).pipe(response);  
-   //response.send(r);
+   }).pipe(response);     
  });
- 
- /*app.get('/rottenApi', function(request, response) {
-  var r = req("http://api.rottentomatoes.com/api/public/v1.0/movies.json?q=Butch+Cassidy&page_limit=10&page=1&apikey=74pt3qns49x8qu5a2fumx2qf", function (error, response, body) {
-     if (!error && response.statusCode == 200) {
-       console.log(body); // Print the google web page.
-     }        
-   });  
-   response.send(r);   
- }); */
  
  app.get('/', function(request, response) {
     response.sendfile('index.html');
  });
-
+ 
  
  app.listen(3000); 
