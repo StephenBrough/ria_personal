@@ -4,5 +4,5 @@ ria_personal
 
 Personal Project for RIA
 
-Download files and put load them into the local server. 
+Download files and run a node server with the 'app.js' file in the root directory. 
 
