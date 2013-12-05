@@ -14,9 +14,10 @@
 		</div>
     
     <div id="results">     
+     
       <ul>      
-        <li data-ng-repeat="result in resultObject.result">
-        Name:{{ result.name }}
+        <li data-ng-repeat="movie in movies.movies">
+        Name:{{ movie.title }}
         </li>
       </ul>
     </div>
