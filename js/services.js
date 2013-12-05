@@ -26,7 +26,7 @@
           url: rottenPath + '/' + params.page_limit + '/' + params.page + '/' + args
         })
           .success(function(data, status, headers, config){
-            console.log(data);
+            //console.log(data);
             callback(data);
           });
         console.log("Rotten Tomatoes URL: " + rottenPath + '/' + params.page_limit + '/' + params.page + '/' + args);
