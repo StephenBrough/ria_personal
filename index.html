@@ -17,7 +17,10 @@
      
       <ul>      
         <li data-ng-repeat="movie in movies.movies">
-        Name:{{ movie.title }}
+        Title:{{ movie.title }} <br/>
+        Released: {{ movie.year }} <br/>
+        MPAA Rating: {{ movie.mpaa_rating }} <br/>
+        <img ng-src="{{ movie.posters.thumbnail }}" />
         </li>
       </ul>
     </div>
