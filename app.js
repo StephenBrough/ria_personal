@@ -9,8 +9,7 @@
  */
  
  var express = require('express');
- var request = require('request');  
- //var Arg = require('arg');
+ var request = require('request');   
  var app = express(); 
  
  /* Rotten Tomatoes key variables */

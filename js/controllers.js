@@ -17,8 +17,6 @@ ctrls.controller('MovieCtrl', ['$scope', 'Movies', function($scope, Movies) {
         Movies.get(query, function(data) {
           $scope.movies = data;
         });
-   }   
-      
-     //$scope.orderProp = 'SOMETHINGHERE';
+   }    
 }]);
  
